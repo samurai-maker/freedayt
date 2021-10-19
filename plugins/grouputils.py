@@ -114,7 +114,6 @@ async def midhunadmin(client, message):
     holy = ujwal.username or ujwal.id
     messag = f"""
 <b>Admins in {ujwal.title} | {holy}</b>
-
 {mentions}
 """
     await edit_or_send_as_file(
@@ -341,12 +340,16 @@ async def ujwal_mote(client, message):
         await client.promote_chat_member(
             message.chat.id,
             user.id,
-            can_change_info=me_.can_change_info,
-            can_delete_messages=me_.can_delete_messages,
-            can_restrict_members=me_.can_restrict_members,
-            can_invite_users=me_.can_invite_users,
-            can_pin_messages=me_.can_pin_messages,
-            can_promote_members=me_.can_promote_members,
+            is_anonymous=False,
+            can_change_info=True,
+            can_post_messages=True,
+            can_edit_messages=True,
+            can_delete_messages=True,
+            can_restrict_members=True,
+            can_invite_users=True,
+            can_pin_messages=True,
+            can_promote_members=True,
+            can_manage_chat=True,
         )
     except BaseException as e:
         await pablo.edit(engine.get_string("FAILED_ADMIN_ACTION").format("Promote", e))
@@ -405,6 +408,8 @@ async def ujwal_demote(client, message):
             can_invite_users=False,
             can_pin_messages=False,
             can_promote_members=False,
+            can_manage_voice_chats=False,
+            can_manage_chat=False,
         )
     except BaseException as e:
         await pablo.edit(engine.get_string("FAILED_ADMIN_ACTION").format("Demote", e))
